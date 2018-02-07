@@ -1,0 +1,79 @@
+extends ../layout
+
+block content
+  link(rel="stylesheet", href="/css/signin.css")
+  
+  body
+    .container-fluid.mainLogo
+      .container
+        .col-xs-0.col-md-2.mlogo
+          img.img-responsive.center-block.logo(src='/imgs/logo.png')
+        .col-xs-12.col-md-6
+          h3.title #{title}
+        .col-xs-0.col-md-4.daidaidongdong
+          img.img-responsive.gif(src='/imgs/xiaoxun.gif')
+    br
+
+    .container
+      .row
+        .col-md-9
+          .panel.panel-primary
+            .panel-heading(style="background-color:#1295d8")
+              span.glyphicon.glyphicon-user(aria-hidden="true") 
+              span  个人信息
+            .panel-body
+              p 姓名：#{user.name}
+              p 性别：#{user.gender}
+              p 学号：#{user.id}
+              p 专业：#{user.major}
+              p 院系：#{user.faculty}
+           
+          .panel.panel-primary
+            .panel-heading(style="background-color:#1295d8")
+              span.glyphicon.glyphicon-th-list(aria-hidden="true") 
+              span  最新项目
+                small(style="color: lightgray")  最新申请的三个项目
+            .panel-body
+              -if (projects.length==0)
+                .alert.alert-warning 无申请项目
+              -else
+                table.table.table-bordered
+                  tr
+                    td 时间
+                    td 项目类别
+                    td 项目名称
+                    td 申请学分
+                    td 备注
+                    td 认定学分                      
+                  -var length = projects.length
+                  -for(var i=length-1;i>=length-3&&i>=0;i--) {
+                    tr
+                      td.hidden= projects[i]._id
+                      td= projects[i].date
+                      td= projects[i].kind
+                      td= projects[i].name
+                      td= projects[i].applyPoint
+                      td= projects[i].remark
+                      td                         
+                  -}
+                      
+        .col-md-3
+          .panel.panel-primary
+            .panel-heading(style="background-color:#1295d8")
+              span.glyphicon.glyphicon-unchecked(aria-hidden="true") 
+              span  功能按钮
+            .panel-body
+              a.btn.btn-primary.btn-block(href="http://localhost:3000/add")
+                span.glyphicon.glyphicon-plus-sign(aria-hidden="true")  
+                span  添加项目
+              a.btn.btn-primary.btn-block(href="http://localhost:3000/table")
+                span.glyphicon.glyphicon-list(aria-hidden="true")  
+                span  查看总表  
+              button.btn.btn-danger.btn-block.quit(type='button') 
+                span.glyphicon.glyphicon-log-out(aria-hidden="true")  
+                span  注销
+
+    #add
+
+    script(src="/libs/jquery/dist/jquery.min.js")
+    script(src="/js/signout.js")

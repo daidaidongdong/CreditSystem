@@ -1,0 +1,63 @@
+extends ../layout
+
+block content    
+  link(rel="stylesheet", href="/css/signin.css")
+
+  body
+    .container-fluid.mainLogo
+      .container
+        .col-xs-0.col-md-2.mlogo
+          a(href="http://localhost:3000")
+            img.img-responsive.center-block.logo(src='/imgs/logo.png')
+        .col-xs-12.col-md-6
+          h3.title #{title}
+        .col-xs-0.col-md-4.daidaidongdong
+          img.img-responsive.gif(src='/imgs/xiaoxun.gif')
+    br
+
+    .container
+      .row
+        .table-responsive
+          table.table.table-condensed.table-hover
+            tr.warning
+              td.warning 姓名：
+              td.warning=student.name
+              td.warning 性别：
+              td.warning=student.gender
+              td.warning 学号：
+              td.warning=student.id
+              td.warning
+            tr.warning
+              td.warning 学院：
+              td.warning=student.faculty
+              td.warning 专业及班级：
+              td.warning=student.major
+              td.warning
+              td.warning  
+              td.warning
+          table.table.table-condensed.table-hover.table-bordered             
+            tr.active
+              td.active 申请日期
+              td.active 项目分类
+              td.active 项目名
+              td.active 申请分值
+              td.active 认定分值
+              td.active 备注
+              td.active 操作
+            each item in projects
+              tr
+                td=item.date
+                td=item.kind
+                td=item.name
+                td=item.applyPoint
+                td 0
+                td=item.remark
+                td
+                  form(action="/change", method="POST")
+                    input.hidden(type="text", name="_id", value="#{item._id}")
+                    button.btn.btn-info 修改
+                    button.btn.btn-danger.delete(value="#{item._id}", onclick="deleteIt(this)") 删除
+
+    script(src="/libs/jquery/dist/jquery.min.js")
+    script(src="/js/delete.js")
+              
